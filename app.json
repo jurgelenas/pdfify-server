@@ -1,0 +1,38 @@
+{
+  "name": "PDFify",
+  "description": "This app is HTML to PDF service.",
+  "keywords": [
+    "pdf",
+    "html",
+    "html to pdf",
+    "html 2 pdf",
+  ],
+  "website": "https://www.github.com/jurgelenas/pdfify",
+  "repository": "https://www.github.com/jurgelenas/pdfify",
+  "env": {
+    "HTML_SIZE_LIMIT": {
+      "description": "Controls the maximum request body size e.g. 100kB, 2mb.",
+      "value": "2mb"
+    },
+    "WORKER_COUNT": {
+      "description": "Number of workers to maintain. One or two per CPU core is recommended.",
+      "value": "2"
+    },
+    "WORKER_DEATH": {
+      "description": "Number of items to process before restarting a worker to prevent phantomjs memory leaks.",
+      "value": "20"
+    },
+    "PAGE_DEATH": {
+      "description": "Number of milliseconds to wait before before requeuing an item.",
+      "value": "8000"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "https://github.com/stomita/heroku-buildpack-phantomjs"
+    },
+    {
+      "url": "http://github.com/heroku/heroku-buildpack-nodejs.git"
+    }
+  ]
+}

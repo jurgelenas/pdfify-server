@@ -1,0 +1,33 @@
+{
+  "name": "pdfify-server",
+  "description": "Convert HTML to PDF",
+  "version": "1.0.0",
+  "author": "Julius Jurgelėnas <julius@jurgelenas.lt>",
+  "keywords": [
+    "pdf",
+    "html",
+    "html to pdf",
+    "html 2 pdf",
+    "tools"
+  ],
+  "scripts": {
+    "start": "node ./node_modules/.bin/forever -m 5 server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jurgelenas/pdfify-server.git"
+  },
+  "bugs": {
+    "url": "http://github.com/jurgelenas/pdfify-server/issues"
+  },
+  "dependencies": {
+    "body-parser": "~1.15.2",
+    "express": "~4.14.0",
+    "forever": "^0.15.3",
+    "ghost-town": "3.0.0",
+    "morgan": "~1.7.0",
+    "node-uuid": "1.4.7",
+    "phantomjs-prebuilt": "^2.1.13"
+  },
+  "license": "MIT"
+}
