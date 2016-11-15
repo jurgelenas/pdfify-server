@@ -170,15 +170,14 @@ is ```binary```.
 
 ### orientation
 
-PDF document orientation. Can be ```'portrait'```  or ```'landscape'```. Default is
- ```'portrait'```.
+PDF document orientation. Can be ```'portrait'```  or ```'landscape'```. Default is ```'portrait'```.
 
 ### zoomFactor
 
 **You will often adjust this parameter to make your HTML design fit better
 into the PDF document. The sweet spot is between ```0.7``` and ```0.8```.**
 
-Page zoom. Does not work when javascript is disabled. Default zoom is ```1```.
+Zoom factor does not work when javascript is disabled. Default zoom is ```1```.
 
 Additionally it can be set via css:
 ```css
