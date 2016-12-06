@@ -83,7 +83,7 @@ You can do that by using Heroku Button below:
 ## Docker
 
 There is [Dockerfile](Dockerfile) in this repository. You can pull image from
-[Docker Hub](https://hub.docker.com/juliuj/pdfify) with 
+[Docker Hub](https://hub.docker.com/r/juliusj/pdfify/) with 
 ```docker pull juliusj/pdfify```.
 
 ## Your own server
