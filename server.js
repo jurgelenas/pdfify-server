@@ -15,7 +15,13 @@ let town = ghostTown({
   workerCount: config.workerCount,
   workerDeath: config.workerDeath,
   pageDeath: config.pageDeath,
-  phantomBinary: phantomjs.path
+  phantomBinary: phantomjs.path,
+  phantomFlags: {
+    'local-to-remote-url-access': true,
+    'ignore-ssl-errors': true,
+    'web-security': false,
+    'debug' : false
+  }
 });
 
 if (town.isMaster) {
@@ -182,25 +188,30 @@ if (town.isMaster) {
 
       return page.property('paperSize', paperProperties);
     }).then(() => {
-      if (data.url && data.url.length) {
-        return page.open(data.url);
-      } else {
-        return page.property('content', data.html);
-      }
+      return new Promise((resolve) => {
+        if (data.url && data.url.length) {
+          return resolve(page.open(data.url));
+        } else {
+          page.on('onLoadFinished', function() {
+            resolve();
+          });
+          page.property('content', data.html);
+        }
+      });
     }).then((status) => {
       if (status === 'fail') {
         return Promise.reject('Failed to load the given URL.');
       }
-      // We can use here only ES5 since.
-      // page.evaluate passes function to PhantomJs.
+      // We can use here only ES5 since
+      // page.evaluate passes this function to PhantomJs.
       return page.evaluate(function(zoomFactor) {
-        var sheet = window.document.styleSheets[0];
-        var rule = 'body { -webkit-print-color-adjust: exact !important; zoom: ' + zoomFactor + '; }'
-        var index = 0;
-        if (sheet.cssRules && sheet.cssRules.length) {
-          index = sheet.cssRules.length;
-        }
-        sheet.insertRule(rule, index);
+        var rules = 'body { -webkit-print-color-adjust: exact !important; zoom: ' + zoomFactor + ' !important; }';
+
+        var style = document.createElement('style');
+        style.type = 'text/css';
+        style.appendChild(document.createTextNode(rules));
+
+        document.querySelector('head').appendChild(style);
       }, data.zoomFactor);
     }).then(() => {
       return page.render(tmpFile, {
